@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrdv3WCff2Wxgj4U2mVdcw_nn1spbkdR_J0gM45XQWHI_v6WBW96hR3t6lmZTJZPznbq5k7oOR2lFXMcCjJlCHiv6_mWUsPkssM3DO7pHbbloFvMmJsyznPAfUyS9s6KDlHs2QbGA=s680-w680-h510-rw) no-repeat center/cover;
+    background-size: cover;
+    color: #333;
+}
+
+.login-container {
+    margin: 0 15px;
+}
+
+.form-box {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: none;
+    text-align: center;
+}
+
+.form-box.active {
+    display: block;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #444;
+}
+
+img.logo {
+    display: block;
+    margin: 0 auto 15px;
+    width: 80px;
+    height: auto;
+}
+
+.form-box p {
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+/* Input Styles */
+.form-box input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.form-box input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+/* Button Styles */
+.form-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-box button:hover {
+    background: linear-gradient(135deg, #5a6fe2, #6a3e92);
+    transform: translateY(-2px);
+}
+
+/* Error Message */
+.error-message {
+   background: #ffe6e6;
+    border: 1px solid #ffb3b3;
+    color: #d93025;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    text-align: left;
+}
+/* Style for select dropdown */
+.form-box select {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background: #fff url("data:image/svg+xml;utf8,<svg fill='%23667eea' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 12px center;
+    appearance: none;   /* Removes default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: #333;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* Focus effect */
+.form-box select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+/* Option styling */
+.form-box select option {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+
