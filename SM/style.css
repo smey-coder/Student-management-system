@@ -12,7 +12,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrdv3WCff2Wxgj4U2mVdcw_nn1spbkdR_J0gM45XQWHI_v6WBW96hR3t6lmZTJZPznbq5k7oOR2lFXMcCjJlCHiv6_mWUsPkssM3DO7pHbbloFvMmJsyznPAfUyS9s6KDlHs2QbGA=s680-w680-h510-rw) no-repeat center/cover;
+    background: url(image/School.jpg) center/cover no-repeat;
+    color: var(--text-color);
     background-size: cover;
     color: #333;
 }

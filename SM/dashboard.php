@@ -23,7 +23,10 @@
   <!-- Time + Alert -->
   <div class="time-box">
     <i class="ri-time-line"></i>
-    <span><?php echo date("H:i:s | D, d F Y"); ?></span>
+    <?php
+    date_default_timezone_set("Asia/Phnom_Penh");
+    echo date("H:i:s | D, d F Y");
+    ?>
   </div>
 
   <div class="alert">

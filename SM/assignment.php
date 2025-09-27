@@ -1,8 +1,6 @@
 <?php
 $rows = fetch_all($conn,
-  "SELECT id, subject, lecturer, status, deadline
-   From assignments
-   ");
+  "SELECT * From assignments");
 ?>
 <h1>Assignments</h1>
 <table>
