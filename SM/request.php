@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($title && $body) {
         $stmt = prepare_and_execute(
             $conn,
-            "INSERT INTO requests (student_id, request_type, request_detail, status) 
+            "INSERT INTO requests (user_id, request_type, request_detail, status) 
              VALUES (?, ?, ?, 'Pending')",
             'iss',
             [$student_id, $title, $body]

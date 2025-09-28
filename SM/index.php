@@ -23,7 +23,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGN IN</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="image_login/favicon.ico">
+
+    <!-- PNG alternative -->
+    <link rel="icon" type="image/png" href="image_login/favicon.png">
+
+    <!-- SVG (modern browsers) -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+      <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="login-container">

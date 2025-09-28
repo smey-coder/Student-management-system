@@ -16,6 +16,16 @@ $name = $_SESSION['name'] ?? 'Student';
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>User Dashboard</title>
+<!-- Image web -->
+ <!-- ICO format -->
+  <link rel="icon" type="image/x-icon" href="image/favicon.ico">
+
+  <!-- PNG alternative -->
+  <link rel="icon" type="image/png" href="image/favicon.png">
+
+  <!-- SVG (modern browsers) -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
 <link rel="stylesheet" href="user_page1.css">
 </head>
