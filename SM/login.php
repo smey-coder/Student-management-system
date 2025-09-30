@@ -22,11 +22,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['role'] = $user['role']; // ✅ fix here
 
-                if ($user['role'] == 'admin') {
-                    header("Location: admin_page.php");
-                } else {
-                    header("Location: user_page.php");
-                }
+                header("Location: admin_page.php");
                 exit();
             } else {
                 $_SESSION['login_error'] = "Invalid password!";

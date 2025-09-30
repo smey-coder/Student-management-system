@@ -39,7 +39,7 @@
                 <h2>SIGN IN</h2>
                 <img src="image/logo.png" alt="logo" class="logo">
                 <p>NORTON UNIVERSITY</p>
-                <p>Student System</p>
+                <p>ADMIN LOGIN</p>
                 <?= showError($errors['login']); ?>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>

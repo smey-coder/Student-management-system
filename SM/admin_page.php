@@ -22,9 +22,9 @@ $name = $_SESSION['name'] ?? 'Admin';
 <title>Admin Dashboard</title>
 
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="image/favicon.ico">
-<link rel="icon" type="image/png" href="image/favicon.png">
-<link rel="icon" href="image/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/x-icon" href="image_admin_page/favicon.ico">
+<link rel="icon" type="image/png" href="image_admin_page/favicon-32x32.png">
+<link rel="icon" href="image/favicon.svg" type="image_admin_page/svg+xml">
 
 <!-- Icons + CSS -->
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
@@ -35,7 +35,8 @@ $name = $_SESSION['name'] ?? 'Admin';
 
   <!-- Sidebar -->
   <aside class="sidebar">
-    <h2>ADMIN PANEL</h2>
+    <img src="https://cdn-icons-png.freepik.com/256/1466/1466832.png?semt=ais_white_label" alt="Admin Avatar" style="width:100px; height:100px; border-radius:50%; margin-bottom:10px; object-fit:cover; border:2px solid #ccc; padding:5px; background:white; box-shadow:0 0 10px rgba(0,0,0,0.1);text-align:center; display:block; margin-left:auto; margin-right:auto;">
+    <p style="color:#ccc; margin-bottom:20px; text-align:center;">Hello, <?php echo htmlspecialchars($name); ?></p>
     <ul>
       <?php
       // ✅ Menu items for admin
@@ -46,6 +47,7 @@ $name = $_SESSION['name'] ?? 'Admin';
         'teachers'   => ['Manage Teachers','ri-user-2-fill'],
         'attendance' => ['Attendance','ri-calendar-check-fill'],
         'reports'    => ['Reports','ri-bar-chart-box-fill'],
+        'request'    => ['Requests','ri-mail-fill'],
         'settings'   => ['Settings','ri-settings-3-fill'],
       ];
       foreach ($menu as $key => [$label,$icon]) {

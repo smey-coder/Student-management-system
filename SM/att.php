@@ -4,20 +4,28 @@
 //----------------------------------------------------------
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
+    ob_start(); // Start output buffering
 }
 
-require_once 'database.php';   //  must create a $conn = new mysqli(...) inside
-require_once 'function.php';   //  must define fetch_all($conn, $sql, $types, $params)
-
 //----------------------------------------------------------
-//  Require student login
+//  Require student login - MUST BE BEFORE ANY OUTPUT
 //----------------------------------------------------------
-if (isset($_SESSION['student_id'])) {
-    header('Location: user_page.php');
-    exit();
+if (!isset($_SESSION['id'])) {
+    // Clear any output that might have been sent
+    if (ob_get_length()) ob_clean();
+    
+    if (!headers_sent()) {
+        header('Location: login.php');
+        exit();
+    } else {
+        die('<script>window.location.href = "login.php";</script>');
+    }
 }
 
-$student_id = $_SESSION['student_id'];
+require_once 'database.php';
+require_once 'function.php';
+
+$student_id = $_SESSION['id'];
 
 //----------------------------------------------------------
 //  Handle filters
@@ -56,46 +64,126 @@ if (!$error_message) {
     }
     $sql .= " ORDER BY attendance_date DESC";
 
-    // fetch_all() should run a prepared statement and return an array
     $att = fetch_all($conn, $sql, $types, $params);
 } else {
     $att = [];
 }
 
 $total_records = count($att);
+
+// End output buffering and send content
+if (ob_get_length()) ob_end_flush();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Attendance</title>
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="user_page1.css">
 <style>
-/* ===== Table / Status Tags ===== */
+/* Your existing CSS styles here */
 .status-present { background:#d4edda; color:#155724; padding:4px 8px; border-radius:4px; font-weight:bold; }
 .status-absent  { background:#f8d7da; color:#721c24; padding:4px 8px; border-radius:4px; font-weight:bold; }
 .status-late    { background:#fff3cd; color:#856404; padding:4px 8px; border-radius:4px; font-weight:bold; }
 .status-excused { background:#e2e3e5; color:#383d41; padding:4px 8px; border-radius:4px; font-weight:bold; }
 .status-unknown { background:#d6d8d9; color:#1b1e21; padding:4px 8px; border-radius:4px; font-weight:bold; }
 
-.filter-form { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
-.filter-form input, .filter-form select, .filter-form button {
-    padding:6px 10px; border-radius:4px; border:1px solid #ddd;
+.filter-form { 
+    display:flex; 
+    gap:10px; 
+    flex-wrap:wrap; 
+    margin-bottom:20px; 
+    align-items: center;
 }
-.filter-form button { background:#2563eb; color:#fff; border:none; cursor:pointer; }
-.filter-form button:hover { background:#1e40af; }
-.btn-clear { background:#dc2626; color:#fff; text-decoration:none; padding:6px 10px; border-radius:4px; }
-.btn-clear:hover { background:#b91c1c; }
+.filter-form label { 
+    font-weight: 600;
+    color: #374151;
+}
+.filter-form input, .filter-form select, .filter-form button {
+    padding:8px 12px; 
+    border-radius:6px; 
+    border:1px solid #d1d5db;
+    font-size: 14px;
+}
+.filter-form button { 
+    background:#2563eb; 
+    color:#fff; 
+    border:none; 
+    cursor:pointer;
+    transition: background 0.2s;
+}
+.filter-form button:hover { 
+    background:#1e40af; 
+}
+.btn-clear { 
+    background:#dc2626; 
+    color:#fff; 
+    text-decoration:none; 
+    padding:8px 16px; 
+    border-radius:6px;
+    display: inline-block;
+    transition: background 0.2s;
+}
+.btn-clear:hover { 
+    background:#b91c1c; 
+}
 
-.summary { background:#e7f3ff; padding:15px; border-radius:8px; margin-bottom:20px; }
-.no-data { text-align:center; padding:30px; color:#6b7280; }
+.alert-box {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
 
-table { width:100%; border-collapse:collapse; box-shadow:0 2px 8px rgba(0,0,0,0.08);
-        border-radius:8px; overflow:hidden; }
-table th { background:#2563eb; color:#fff; font-weight:600; padding:12px; text-align:left; }
-table td { padding:12px; border-bottom:1px solid #e5e7eb; }
-table tbody tr:hover { background:#f9fafb; }
+.summary { 
+    background:#e7f3ff; 
+    padding:15px; 
+    border-radius:8px; 
+    margin-bottom:20px;
+    border-left: 4px solid #2563eb;
+}
+
+.no-data { 
+    text-align:center; 
+    padding:40px; 
+    color:#6b7280;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+table { 
+    width:100%; 
+    border-collapse:collapse; 
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    border-radius:8px; 
+    overflow:hidden;
+    background: white;
+}
+table th { 
+    background:#2563eb; 
+    color:#fff; 
+    font-weight:600; 
+    padding:12px; 
+    text-align:left;
+}
+table td { 
+    padding:12px; 
+    border-bottom:1px solid #e5e7eb;
+}
+table tbody tr:hover { 
+    background:#f9fafb; 
+}
+
+@media (max-width: 768px) {
+    .filter-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
 </style>
 </head>
 <body>
@@ -114,21 +202,27 @@ table tbody tr:hover { background:#f9fafb; }
         <!-- Filter Form -->
         <form class="filter-form" method="get">
             <input type="hidden" name="page" value="att">
-            <label>Start:</label>
-            <input type="date" name="start" value="<?= htmlspecialchars($start_date) ?>">
-            <label>End:</label>
-            <input type="date" name="end" value="<?= htmlspecialchars($end_date) ?>">
-            <label>Status:</label>
-            <select name="status">
-                <option value="">All</option>
-                <option value="Present" <?= $status_filter === 'Present' ? 'selected' : '' ?>>Present</option>
-                <option value="Absent"  <?= $status_filter === 'Absent'  ? 'selected' : '' ?>>Absent</option>
-                <option value="Late"    <?= $status_filter === 'Late'    ? 'selected' : '' ?>>Late</option>
-                <option value="Excused" <?= $status_filter === 'Excused' ? 'selected' : '' ?>>Excused</option>
-            </select>
-            <button type="submit">Filter</button>
+            <div>
+                <label>Start Date:</label>
+                <input type="date" name="start" value="<?= htmlspecialchars($start_date) ?>">
+            </div>
+            <div>
+                <label>End Date:</label>
+                <input type="date" name="end" value="<?= htmlspecialchars($end_date) ?>">
+            </div>
+            <div>
+                <label>Status:</label>
+                <select name="status">
+                    <option value="">All Status</option>
+                    <option value="Present" <?= $status_filter === 'Present' ? 'selected' : '' ?>>Present</option>
+                    <option value="Absent"  <?= $status_filter === 'Absent'  ? 'selected' : '' ?>>Absent</option>
+                    <option value="Late"    <?= $status_filter === 'Late'    ? 'selected' : '' ?>>Late</option>
+                    <option value="Excused" <?= $status_filter === 'Excused' ? 'selected' : '' ?>>Excused</option>
+                </select>
+            </div>
+            <button type="submit">Apply Filters</button>
             <?php if ($start_date || $end_date || $status_filter): ?>
-                <a href="att.php" class="btn-clear">Clear</a>
+                <a href="att.php" class="btn-clear">Clear Filters</a>
             <?php endif; ?>
         </form>
 
@@ -142,7 +236,7 @@ table tbody tr:hover { background:#f9fafb; }
                     case 'excused': $excused++; break;
                 }
             }
-            $attendance_rate = round(($present / $total_records) * 100, 1);
+            $attendance_rate = $total_records > 0 ? round(($present / $total_records) * 100, 1) : 0;
         ?>
             <div class="summary">
                 <strong>Total Records:</strong> <?= $total_records ?> |
