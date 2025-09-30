@@ -28,7 +28,7 @@ $name = $_SESSION['name'] ?? 'Admin';
 
 <!-- Icons + CSS -->
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
-<link rel="stylesheet" href="user_page1.css">
+<link rel="stylesheet" href="admin_page.css">
 </head>
 <body>
 <div class="dashboard-container">
@@ -36,7 +36,7 @@ $name = $_SESSION['name'] ?? 'Admin';
   <!-- Sidebar -->
   <aside class="sidebar">
     <img src="https://cdn-icons-png.freepik.com/256/1466/1466832.png?semt=ais_white_label" alt="Admin Avatar" style="width:100px; height:100px; border-radius:50%; margin-bottom:10px; object-fit:cover; border:2px solid #ccc; padding:5px; background:white; box-shadow:0 0 10px rgba(0,0,0,0.1);text-align:center; display:block; margin-left:auto; margin-right:auto;">
-    <p style="color:#ccc; margin-bottom:20px; text-align:center;">Hello, <?php echo htmlspecialchars($name); ?></p>
+    <p style="color:#ccc; margin-bottom:20px; text-align:center;">NORTON UNIVERSITY</p>
     <ul>
       <?php
       // ✅ Menu items for admin
